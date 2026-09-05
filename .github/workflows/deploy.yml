@@ -21,10 +21,10 @@ jobs:
 
     steps:
       # ------------------------------------------------------------
-      # Step 1: 检出代码 (v4 → v7)
+      # Step 1: 检出代码 (v4 → v7.0.1)
       # ------------------------------------------------------------
       - name: Checkout repository
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
 
       # ------------------------------------------------------------
       # Step 2: 安装系统依赖
@@ -42,10 +42,10 @@ jobs:
             libz-dev
 
       # ------------------------------------------------------------
-      # Step 3: 安装 uv (v7 → v10)
+      # Step 3: 安装 uv (v7 → v10.0.1)
       # ------------------------------------------------------------
       - name: Install uv
-        uses: astral-sh/setup-uv@v10
+        uses: astral-sh/setup-uv@v10.0.1
 
       # ------------------------------------------------------------
       # Step 4: 设置 Python 版本
@@ -54,14 +54,14 @@ jobs:
         run: uv python install
 
       # ------------------------------------------------------------
-      # Step 5: 缓存 uv 依赖 (v4 → v6)
+      # Step 5: 缓存 uv 依赖 (v4 → v6.1.0)
       # ------------------------------------------------------------
       - name: Generate cache key
         id: cache_key
         run: echo "week=$(date --utc '+%V')" >> $GITHUB_OUTPUT
 
       - name: Cache uv dependencies
-        uses: actions/cache@v6
+        uses: actions/cache@v6.1.0
         with:
           path: ~/.cache/uv
           key: uv-${{ runner.os }}-${{ steps.cache_key.outputs.week }}
@@ -81,10 +81,10 @@ jobs:
         run: uv run mkdocs build
 
       # ------------------------------------------------------------
-      # Step 8: 部署到 Cloudflare Pages (v3 → v4)
+      # Step 8: 部署到 Cloudflare Pages (v3 → v4.0.0)
       # ------------------------------------------------------------
       - name: Deploy to Cloudflare Pages
-        uses: cloudflare/wrangler-action@v4
+        uses: cloudflare/wrangler-action@v4.0.0
         with:
           apiToken: ${{ secrets.CF_API_TOKEN }}
           accountId: ${{ secrets.CF_ACCOUNT_ID }}
