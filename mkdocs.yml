@@ -1,11 +1,13 @@
-site_name: My site
+site_name: Miscellanea Scientiarum Seani
 site_url: https://mydomain.org/mysite
 theme:
   name: material
+  logo: assets/zhishi.svg
   language: zh
   palette:
     # Palette toggle for automatic mode
     - media: "(prefers-color-scheme)"
+      primary: white
       toggle:
         icon: material/brightness-auto
         name: Switch to light mode
@@ -13,6 +15,7 @@ theme:
     # Palette toggle for light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default 
+      primary: white
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
@@ -28,7 +31,7 @@ theme:
     - navigation.instant
     - navigation.instant.prefetch
     - navigation.instant.progress
-    - navigation.instant.preview
+    # - navigation.instant.preview
     - navigation.tracking
     - navigation.tabs
     - navigation.sections
@@ -96,4 +99,12 @@ extra_javascript:
   - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
 
 copyright: Copyright &copy; 2025 - 2026 Sean Zirui
+
+
+
+nav:
+  - 首页: index.md
+  - 计算理论:
+      - posts/computation/index.md
+      - 代数与计算: posts/computation/algebra-and-computation.md
       
