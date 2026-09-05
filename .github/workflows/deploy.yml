@@ -1,0 +1,91 @@
+# ============================================================
+# 文件名: .github/workflows/deploy.yml
+# ============================================================
+
+name: Deploy MkDocs Site to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  deployments: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ------------------------------------------------------------
+      # Step 1: 检出代码 (v4 → v7)
+      # ------------------------------------------------------------
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      # ------------------------------------------------------------
+      # Step 2: 安装系统依赖
+      # ------------------------------------------------------------
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            pngquant \
+            libcairo2-dev \
+            libfreetype6-dev \
+            libffi-dev \
+            libjpeg-dev \
+            libpng-dev \
+            libz-dev
+
+      # ------------------------------------------------------------
+      # Step 3: 安装 uv (v7 → v10)
+      # ------------------------------------------------------------
+      - name: Install uv
+        uses: astral-sh/setup-uv@v10
+
+      # ------------------------------------------------------------
+      # Step 4: 设置 Python 版本
+      # ------------------------------------------------------------
+      - name: Set up Python
+        run: uv python install
+
+      # ------------------------------------------------------------
+      # Step 5: 缓存 uv 依赖 (v4 → v6)
+      # ------------------------------------------------------------
+      - name: Generate cache key
+        id: cache_key
+        run: echo "week=$(date --utc '+%V')" >> $GITHUB_OUTPUT
+
+      - name: Cache uv dependencies
+        uses: actions/cache@v6
+        with:
+          path: ~/.cache/uv
+          key: uv-${{ runner.os }}-${{ steps.cache_key.outputs.week }}
+          restore-keys: |
+            uv-${{ runner.os }}-
+
+      # ------------------------------------------------------------
+      # Step 6: 安装 Python 依赖
+      # ------------------------------------------------------------
+      - name: Install dependencies
+        run: uv sync --group docs
+
+      # ------------------------------------------------------------
+      # Step 7: 构建静态站点
+      # ------------------------------------------------------------
+      - name: Build site
+        run: uv run mkdocs build
+
+      # ------------------------------------------------------------
+      # Step 8: 部署到 Cloudflare Pages (v3 → v4)
+      # ------------------------------------------------------------
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
+          accountId: ${{ secrets.CF_ACCOUNT_ID }}
+          command: pages deploy site --project-name=${{ vars.CF_PAGES_PROJECT_NAME }}
