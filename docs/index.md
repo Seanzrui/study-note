@@ -1,3 +1,9 @@
+---
+title: 首页
+date: 2026-09-06
+giscus_id: site-first-page
+---
+
 # Welcome to MkDocs
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).

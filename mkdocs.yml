@@ -2,7 +2,9 @@ site_name: Miscellanea Scientiarum Seani
 site_url: https://material-study-note.pages.dev
 theme:
   name: material
+  custom_dir: overrides
   logo: assets/zhishi.svg
+  favicon: images/zhishi.svg
   language: zh
   # font: 
   #   text: Noto Sans SC
@@ -53,6 +55,7 @@ plugins:
   - blog
   - search
   - optimize
+  - meta
 
 markdown_extensions:
   - abbr

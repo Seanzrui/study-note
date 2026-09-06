@@ -1,6 +1,7 @@
 ---
 title: 关于计算、逻辑与宇宙的杂记
 date: 2026-09-05
+giscus_id: computation-logic-universe
 ---
 
 # 关于计算、逻辑与宇宙的杂记
