@@ -1,0 +1,18 @@
+.md-content__inner.md-typeset {
+  font-size: 0.7rem;
+  line-height: 1.75;
+}
+
+.md-content__inner.md-typeset h1,
+.md-content__inner.md-typeset h2,
+.md-content__inner.md-typeset h3 {
+  letter-spacing: 0;
+}
+
+/* Keep mobile navigation large enough to remain an accessible touch target. */
+@media screen and (min-width: 60em) {
+  .md-sidebar .md-nav {
+    font-size: 0.65rem;
+    line-height: 1.45;
+  }
+}
