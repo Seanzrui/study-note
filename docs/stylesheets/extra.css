@@ -9,6 +9,11 @@
   letter-spacing: 0;
 }
 
+/* Adjust only the site name in the header, not the current page title. */
+.md-header__title > .md-header__ellipsis > .md-header__topic:first-child {
+  letter-spacing: 0.04em;
+}
+
 /* Keep mobile navigation large enough to remain an accessible touch target. */
 @media screen and (min-width: 60em) {
   .md-sidebar .md-nav {
