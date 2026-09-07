@@ -11,7 +11,7 @@
 
 /* Adjust only the site name in the header, not the current page title. */
 .md-header__title > .md-header__ellipsis > .md-header__topic:first-child {
-  letter-spacing: 0.04em;
+  letter-spacing: 0.03em;
 }
 
 /* Keep mobile navigation large enough to remain an accessible touch target. */
